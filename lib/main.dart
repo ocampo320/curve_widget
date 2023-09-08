@@ -1,10 +1,5 @@
-import 'dart:convert';
-
 import 'package:curved_carousel/curved_carousel.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:test_carrusel/home_category/category.dart';
-import 'package:test_carrusel/home_category/categoryes.dart';
 
 void main() {
   runApp(const MyApp());
@@ -58,89 +53,71 @@ class _CurvedCarouselDemoState extends State<CurvedCarouselDemo> {
           // the App.build method, and use it to set our appbar title.
           title: const Text('Curved Carousel Demo'),
         ),
-        body: FutureBuilder<Iterable<Category>>(
-            future: cargarCategoriasDesdeJSON("Lugares"),
-            builder: (context, snapshot) {
-              return snapshot.data != null
-                  ? SingleChildScrollView(
-                      child: Column(
-                        children: [
-                          SizedBox(
-                            height: 200,
-                            child: CurvedCarousel(
-                              curveScale: -4,
-                              itemBuilder: (_, i) {
-                                return CircleAvatar(
-                                  radius: 20,
-                                  child: Text(l[i].toString()),
-                                );
-                              },
-                              itemCount: l.length,
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(top: 100),
-                            child: Column(
-                              children: [
-                                SizedBox(
-                                  height: 200,
-                                  child: CurvedCarousel(
-                                    tiltItemWithcurve: true,
-                                    curveScale: 30,
-                                    itemBuilder: (_, i) {
-                                      return CircleAvatar(
-                                        radius: 50,
-                                        backgroundColor: Colors.primaries[
-                                            i % Colors.primaries.length],
-                                        child: Text(i.toString()),
-                                      );
-                                    },
-                                    itemCount: 10,
-                                  ),
-                                )
-                              ],
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(top: 50, bottom: 50),
-                            child: CurvedCarousel(
-                              tiltItemWithcurve: true,
-                              itemBuilder: (_, i) {
-                                return SizedBox(
-                                  width: 50,
-                                  height: 50,
-                                  child: Card(
-                                    shadowColor: Colors.primaries[
-                                        i-- % Colors.primaries.length],
-                                    elevation: 7,
-                                    color: Colors
-                                        .primaries[i % Colors.primaries.length],
-                                    child: Center(
-                                        child: Text(
-                                      i.toString(),
-                                      style:
-                                          const TextStyle(color: Colors.white),
-                                    )),
-                                  ),
-                                );
-                              },
-                              itemCount: 10,
-                            ),
-                          ),
-                        ],
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              SizedBox(
+                height: 200,
+                child: CurvedCarousel(
+                  curveScale: -4,
+                  itemBuilder: (_, i) {
+                    return CircleAvatar(
+                      radius: 20,
+                      child: Text(l[i].toString()),
+                    );
+                  },
+                  itemCount: l.length,
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 100),
+                child: Column(
+                  children: [
+                    SizedBox(
+                      height: 200,
+                      child: CurvedCarousel(
+                        tiltItemWithcurve: true,
+                        curveScale: 30,
+                        itemBuilder: (_, i) {
+                          return CircleAvatar(
+                            radius: 50,
+                            backgroundColor:
+                                Colors.primaries[i % Colors.primaries.length],
+                            child: Text(i.toString()),
+                          );
+                        },
+                        itemCount: 10,
                       ),
                     )
-                  : const SizedBox();
-            }));
-  }
-
-  Future<Iterable<Category>> cargarCategoriasDesdeJSON(String type) async {
-    final jsonData = await rootBundle.loadString('assets/list_categoryes.json');
-    final List<dynamic> parsedData = json.decode(jsonData);
-
-    return parsedData
-        .map((data) => Category.fromJson(data))
-        .toList()
-        .where((element) => element.title == type);
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 50, bottom: 50),
+                child: CurvedCarousel(
+                  tiltItemWithcurve: true,
+                  itemBuilder: (_, i) {
+                    return SizedBox(
+                      width: 50,
+                      height: 50,
+                      child: Card(
+                        shadowColor:
+                            Colors.primaries[i-- % Colors.primaries.length],
+                        elevation: 7,
+                        color: Colors.primaries[i % Colors.primaries.length],
+                        child: Center(
+                            child: Text(
+                          i.toString(),
+                          style: const TextStyle(color: Colors.white),
+                        )),
+                      ),
+                    );
+                  },
+                  itemCount: 10,
+                ),
+              ),
+            ],
+          ),
+        ));
   }
 }
