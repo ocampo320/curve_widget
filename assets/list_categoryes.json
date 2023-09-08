@@ -1,0 +1,18 @@
+[
+  {
+    "title": "Lugares",
+    "icons": [
+      "assets/icons/find_icon.svg",
+      "assets/icons/dish_icon.svg",
+      "assets/icons/can_icon.svg",
+      "assets/icons/suitcase_icon.svg"
+    ]
+  },
+  {
+    "title": "Categoría 2",
+    "icons": [
+      "icono4",
+      "icono5"
+    ]
+  }
+]
